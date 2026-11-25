@@ -1,0 +1,20 @@
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+  optimizeDeps: {
+    include: ['pdfjs-dist'],
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          pdfjs: ['pdfjs-dist'],
+          vendor: ['react', 'react-dom', 'dexie', 'dexie-react-hooks', 'lucide-react'],
+        },
+      },
+    },
+  },
+});
